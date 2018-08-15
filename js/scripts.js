@@ -12,7 +12,7 @@ const consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", 
 //
 // }
 
-// Given a word, returns true if the first letter is a vowel, returns false otherwise.
+// Given a string (userString) and a position within that string (letterPosition), returns true if the letter in the position letterPosition is a vowel and false otherwise.
 var isAVowel = function(userString, letterPosition) {
   const vowels = /(a|e|i|o|u)/i;
   var letter = userString.charAt(letterPosition);
