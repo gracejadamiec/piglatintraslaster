@@ -20,9 +20,19 @@ var blockLength = function(userString) {
       if (isAVowel(userString, index) === true) {
         break;
       } else if (isAVowel(userString, index) === false) {
+        console.log(index);
+        if (userString[index] === "q") {
+          if (userString[index+1] === "u") {
+            index = index + 2;
+          } else {
+            index = index + 1;
+          }
+        } else {
         index = index + 1;
+        console.log(index);
       }
     };
+  };
   return index;
 };
 
