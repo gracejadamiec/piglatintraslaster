@@ -1,17 +1,5 @@
 // BACKEND LOGIC
 
-const vowels = ["a", "e", "i", "o", "u"];
-const consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
-
-// var pigLatin = function(userSentence) {
-//   if () {
-//
-//   } else {
-//     return false;
-//   }
-//
-// }
-
 // Given a string (userString) and a position within that string (letterPosition), returns true if the letter in the position letterPosition is a vowel and false otherwise.
 var isAVowel = function(userString, letterPosition) {
   const vowels = /(a|e|i|o|u)/i;
@@ -21,10 +9,37 @@ var isAVowel = function(userString, letterPosition) {
     return true
   } else {
     return false
+  };
+};
+
+
+// GIVEN A STRING, DETERMINES HOW MANY CONSONANTS THERE ARE AT THE BEGINNING OF A WORD BEFORE A VOWEL
+
+var blockLength = function(userString) {
+  for (var index = 0; index < userString.length; ) {
+      if (isAVowel(userString, index) === true) {
+        break;
+      } else if (isAVowel(userString, index) === false) {
+        index = index + 1;
+      }
+    };
+  return index;
+};
+
+
+
+
+var translate = function(userString) {
+  var output;
+  var block = blockLength(userString);
+  if (block === 0) { // userString begins with at least one vowel
+    output = userString + "yay";
+  } else if (block >= 1) { // userString begins with at least 1 consonant
+    var len = userString.length
+    output = userString.slice(block, len-1) + userString.slice(0,block) + "ay";
   }
+  return output;
 }
-
-
 
 
 
