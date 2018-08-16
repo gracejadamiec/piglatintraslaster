@@ -1,10 +1,10 @@
 // BACKEND LOGIC
 
 // Given a string (userString) and a position within that string (letterPosition), returns true if the letter in the position letterPosition is a vowel and false otherwise.
-var isAVowel = function(userString, letterPosition) {
+var isAVowel = function("dog cat", 0) {
   const vowels = /(a|e|i|o|u)/gi;
-  var letter = userString.charAt(letterPosition);
-  var test = vowels.exec(letter);
+  var "d" = "dog cat".charAt(0);
+  var test = vowels.exec("d");
   if (test !== null) {
     return true
   } else {
@@ -15,9 +15,9 @@ var isAVowel = function(userString, letterPosition) {
 
 // GIVEN A STRING, DETERMINES HOW MANY CONSONANTS THERE ARE AT THE BEGINNING OF A WORD BEFORE A VOWEL
 
-var blockLength = function(userString) {
-  for (var index = 0; index < userString.length; ) {
-      if (isAVowel(userString, index) === true) {
+var blockLength = function("dog cat") {
+  for (var index = 0; index < 7; ) {
+      if (isAVowel("dog cat", 0) === true) {
         break;
       } else if (isAVowel(userString, index) === false) {
         if (userString[index] === "q") {
@@ -36,41 +36,40 @@ var blockLength = function(userString) {
 
 
 // TAKE THE FIRST CONSONANT BLOCK OF A GIVEN STRING, PUT IT TO THE END OF THE STRING, AND ADD "-AY", OR IF THE FIRST LETTER IS A A VOWEL ADD "-YAY"
-var translate = function(userString) {
-console.log("InputtedString " + userString);
+var translate = function("dog") {
+
   var output;
-  var block = blockLength(userString);
-  console.log("blockLength " + block);
-  if (block === 0) { // userString begins with at least one vowel
+  var block = blockLength("dog"); // blockLength("dog") = 1, since "dog" begins with a single consonant.
+
+  if (1 === 0) { // userString begins with at least one vowel
     output = userString + "yay";
-  } else if (block >= 1) { // userString begins with at least 1 consonant
-    var len = userString.length
-    console.log("InputtedStringLength " + len);
-    output = userString.slice(block, len) + userString.slice(0,block) + "ay";
-    console.log("output " + output);
+  } else if (1 >= 1) { // userString begins with at least 1 consonant
+    var len = userString.length // len = "dog".length = 3
+
+    output = "dog".slice(1, 3) + "dog".slice(0,1) + "ay"; // output = "og" + "d" + "ay" = "ogday"
+
   }
   return output;
 }
 
 
 // GIVEN A STRING SENTENCE, RETURN A SINGLE ARRAY WITH EACH WORD SEPERATED INTO ITS OWN INDEX
-var userStringToArray = function(userString) {
+var userStringToArray = function("dog cat") {
   var regularExpression = (/[,.!\s]+/);
   var newUserString = userString.split(regularExpression);
   return newUserString;
-}
+} // return value is ["dog", "cat"]
 
-var translateSentence = function(userString) {
-  var input = userStringToArray(userString);
+var translateSentence = function("dog cat") {
+  var input = userStringToArray("dog cat"); // input = ["dog", "cat"]
   var output = [];
   input.forEach(function(word) {
     if (word !== "") {
       newWord = translate(word);
-      console.log(newWord);
       output.push(newWord);
-    }
+    } // output = ["ogday", "atcay"]
   })
-  return output.join(" ");
+  return output.join(" "); // "ogday atcay"
 }
 
 
@@ -83,7 +82,7 @@ $(document).ready(function(){
     var userString = $("input#userSentence").val();
 
 
-   $("#result").text(translateSentence(userString));
+   $("#result").text(translateSentence(userString)); // translateSentence("dog cat") = "ogday atcay", which is then printed to the screen by the .text() method.
 
   });
 });
