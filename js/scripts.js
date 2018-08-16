@@ -2,7 +2,7 @@
 
 // Given a string (userString) and a position within that string (letterPosition), returns true if the letter in the position letterPosition is a vowel and false otherwise.
 var isAVowel = function(userString, letterPosition) {
-  const vowels = /(a|e|i|o|u)/i;
+  const vowels = /(a|e|i|o|u)/gi;
   var letter = userString.charAt(letterPosition);
   var test = vowels.exec(letter);
   if (test !== null) {
@@ -20,7 +20,6 @@ var blockLength = function(userString) {
       if (isAVowel(userString, index) === true) {
         break;
       } else if (isAVowel(userString, index) === false) {
-        console.log(index);
         if (userString[index] === "q") {
           if (userString[index+1] === "u") {
             index = index + 2;
@@ -29,7 +28,6 @@ var blockLength = function(userString) {
           }
         } else {
         index = index + 1;
-        console.log(index);
       }
     };
   };
@@ -37,20 +35,43 @@ var blockLength = function(userString) {
 };
 
 
-
-
+// TAKE THE FIRST CONSONANT BLOCK OF A GIVEN STRING, PUT IT TO THE END OF THE STRING, AND ADD "-AY", OR IF THE FIRST LETTER IS A A VOWEL ADD "-YAY"
 var translate = function(userString) {
+console.log("InputtedString " + userString);
   var output;
   var block = blockLength(userString);
+  console.log("blockLength " + block);
   if (block === 0) { // userString begins with at least one vowel
     output = userString + "yay";
   } else if (block >= 1) { // userString begins with at least 1 consonant
     var len = userString.length
-    output = userString.slice(block, len-1) + userString.slice(0,block) + "ay";
+    console.log("InputtedStringLength " + len);
+    output = userString.slice(block, len) + userString.slice(0,block) + "ay";
+    console.log("output " + output);
   }
   return output;
 }
 
+
+// GIVEN A STRING SENTENCE, RETURN A SINGLE ARRAY WITH EACH WORD SEPERATED INTO ITS OWN INDEX
+var userStringToArray = function(userString) {
+  var regularExpression = (/[,.!\s]+/);
+  var newUserString = userString.split(regularExpression);
+  return newUserString;
+}
+
+var translateSentence = function(userString) {
+  var input = userStringToArray(userString);
+  var output = [];
+  input.forEach(function(word) {
+    if (word !== "") {
+      newWord = translate(word);
+      console.log(newWord);
+      output.push(newWord);
+    }
+  })
+  return output.join(" ");
+}
 
 
 
@@ -59,22 +80,33 @@ $(document).ready(function(){
   $("form#translator").submit(function(event) {
     event.preventDefault();
 
-    var userSentence = $("input#userSentence").val();
-    var sentenceBeginWithAVowel = function() {
-      if (isAVowel(userSentence, 0) === true) {
-        return "Your sentence starts with a vowel! Way to go!"
-      } else {
-        return "That sentence does not start with a vowel. Better luck next time."
-      }
-    };
+    var userString = $("input#userSentence").val();
 
 
-   $("#result").text(sentenceBeginWithAVowel);
-
-
+   $("#result").text(translateSentence(userString));
 
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
